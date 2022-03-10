@@ -10,23 +10,37 @@
   ],
   "repository": "https://github.com/SpiritSwap/uikit",
   "license": "MIT",
-  "scripts": {
-    "build": "rollup -c && tsc -d --emitDeclarationOnly --declarationDir dist",
-    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
-    "format": "prettier --write src/**/*.{js,jsx,ts,tsx}",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
+  
+  
+    "scripts": {
+    "analyze": "ANALYZE=true yarn build",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "test": "jest",
-    "release": "yarn build && np"
+    "test:watch": "jest --watch",
+    "test:config": "jest src/config/__tests__/ --testPathIgnorePatterns",
+    "integration-test": "start-server-and-test start http://localhost:3000 'cypress run'",
+    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
+    "lint:style": "npx stylelint '**/*.{ts,tsx}'",
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx}\"",
+    "format:check:staged": "lint-staged",
+    "format:write": "prettier --write \"**/*.{js,jsx,ts,tsx}\"",
+    "updateLPsAPR": "NODE_PATH=./src ts-node --compiler-options '{\"module\":\"commonjs\"}' scripts/updateLPsAPR.ts",
+    "prepare": "husky install",
+    "postinstall": "yarn run typechain",
+    "typechain": "typechain --out-dir src/config/abi/types --target=ethers-v5 \"src/config/abi/*.json\""
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn format"
-    }
-  },
-  "jest": {
-    "setupFilesAfterEnv": [
-      "<rootDir>/src/setupTests.js"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ]
   },
   "devDependencies": {

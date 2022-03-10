@@ -10,8 +10,6 @@
   ],
   "repository": "https://github.com/SpiritSwap/uikit",
   "license": "MIT",
-  
-  
     "scripts": {
     "analyze": "ANALYZE=true yarn build",
     "dev": "next dev",
